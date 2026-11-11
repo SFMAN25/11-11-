@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoulMate - Compatibility Test 2026</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background: #090a0f;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Background glow effect */
+        .glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 75, 110, 0.25) 0%, rgba(0,0,0,0) 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            background: rgba(22, 25, 35, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 30px;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(255, 75, 110, 0.15);
+            color: #ff4b6e;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            color: #94a3b8;
+            font-size: 13px;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            color: #cbd5e1;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        select {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        select:focus {
+            border-color: #ff4b6e;
+            box-shadow: 0 0 12px rgba(255, 75, 110, 0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #ff4b6e 0%, #ff758c 100%);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 75, 110, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(255, 75, 110, 0.5);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .result-box {
+            display: none;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .score {
+            font-size: 48px;
+            font-weight: 800;
+            color: #ff4b6e;
+            margin: 10px 0;
+            text-shadow: 0 0 20px rgba(255, 75, 110, 0.5);
+        }
+
+        .status {
+            font-size: 14px;
+            color: #e2e8f0;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .share-hint {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 15px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="glow"></div>
+
+<div class="container">
+    <span class="tag">Global Trend • Viral AI</span>
+    <h1>SoulMate Match</h1>
+    <p class="subtitle">Enter initial letters to calculate energy alignment</p>
+
+    <div class="input-group">
+        <label>YOUR INITIAL</label>
+        <select id="char1">
+            <option value="">Select your letter...</option>
+            <!-- Alphabet Options -->
+            <script>
+                for(let i=65; i<=90; i++){
+                    let l = String.fromCharCode(i);
+                    document.write(`<option value="${l}">${l}</option>`);
+                }
+            </script>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <label>PARTNER INITIAL</label>
+        <select id="char2">
+            <option value="">Select partner's letter...</option>
+            <script>
+                for(let i=65; i<=90; i++){
+                    let l = String.fromCharCode(i);
+                    document.write(`<option value="${l}">${l}</option>`);
+                }
+            </script>
+        </select>
+    </div>
+
+    <button onclick="checkMatch()">Calculate Match 🔥</button>
+
+    <div class="result-box" id="resultBox">
+        <div style="font-size: 12px; color: #94a3b8;">COMPATIBILITY SCORE</div>
+        <div class="score" id="scoreVal">0%</div>
+        <div class="status" id="statusVal">...</div>
+        <div class="share-hint">📸 Take a screenshot & share on Story to challenge your partner!</div>
+    </div>
+</div>
+
+<script>
+function checkMatch() {
+    const c1 = document.getElementById('char1').value;
+    const c2 = document.getElementById('char2').value;
+    const resultBox = document.getElementById('resultBox');
+    const scoreVal = document.getElementById('scoreVal');
+    const statusVal = document.getElementById('statusVal');
+
+    if (!c1 || !c2) {
+        alert("Please select both initials!");
+        return;
+    }
+
+    resultBox.style.display = "block";
+
+    // المنطق السري المظبوط:
+    // لو A مع H أو H مع A -> 100%
+    if ((c1 === 'A' && c2 === 'H') || (c1 === 'H' && c2 === 'A')) {
+        scoreVal.innerText = "100%";
+        scoreVal.style.color = "#ff4b6e";
+        statusVal.innerText = "✨ Perfect Cosmic Soulmates! Pure Connection & High Attraction.";
+    } 
+    // لو A مع M أو M مع A -> 100%
+    else if ((c1 === 'A' && c2 === 'M') || (c1 === 'M' && c2 === 'A')) {
+        scoreVal.innerText = "100%";
+        scoreVal.style.color = "#ff4b6e";
+        statusVal.innerText = "🔥 Unbreakable Chemistry & Deep Emotional Connection.";
+    } 
+    // لو H مع M أو M مع H -> 78%
+    else if ((c1 === 'H' && c2 === 'M') || (c1 === 'M' && c2 === 'H')) {
+        scoreVal.innerText = "78%";
+        scoreVal.style.color = "#38bdf8";
+        statusVal.innerText = "⚡ Strong Vibe! Good potential with right effort.";
+    } 
+    // لو نفس الحرفين -> 95%
+    else if (c1 === c2) {
+        scoreVal.innerText = "95%";
+        scoreVal.style.color = "#a855f7";
+        statusVal.innerText = "🪞 Mirror Souls. Very similar energy.";
+    } 
+    // باقي الحروف -> نسبة حسابية ثابتة بين 60% و 89% عشان تبان حقيقية ومش عشوائية متغيره
+    else {
+        let calc = ((c1.charCodeAt(0) + c2.charCodeAt(0)) % 30) + 60;
+        scoreVal.innerText = calc + "%";
+        scoreVal.style.color = "#38bdf8";
+        statusVal.innerText = "✨ Good Emotional Alignment & Mutual Respect.";
+    }
+}
+</script>
+
+</body>
+</html>
