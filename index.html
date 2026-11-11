@@ -24,7 +24,6 @@
             overflow-x: hidden;
         }
 
-        /* Background glow effect */
         .glow {
             position: absolute;
             width: 300px;
@@ -130,10 +129,6 @@
             box-shadow: 0 12px 25px rgba(255, 75, 110, 0.5);
         }
 
-        button:active {
-            transform: translateY(0);
-        }
-
         .result-box {
             display: none;
             margin-top: 30px;
@@ -182,7 +177,6 @@
         <label>YOUR INITIAL</label>
         <select id="char1">
             <option value="">Select your letter...</option>
-            <!-- Alphabet Options -->
             <script>
                 for(let i=65; i<=90; i++){
                     let l = String.fromCharCode(i);
@@ -230,38 +224,62 @@ function checkMatch() {
 
     resultBox.style.display = "block";
 
-    // المنطق السري المظبوط:
-    // لو A مع H أو H مع A -> 100%
+    let scoreText = "";
+    let statusText = "";
+
+    // المنطق السري المظبوط
     if ((c1 === 'A' && c2 === 'H') || (c1 === 'H' && c2 === 'A')) {
-        scoreVal.innerText = "100%";
+        scoreText = "100%";
+        scoreVal.innerText = scoreText;
         scoreVal.style.color = "#ff4b6e";
-        statusVal.innerText = "✨ Perfect Cosmic Soulmates! Pure Connection & High Attraction.";
+        statusText = "✨ Perfect Cosmic Soulmates! Pure Connection & High Attraction.";
+        statusVal.innerText = statusText;
     } 
-    // لو A مع M أو M مع A -> 100%
     else if ((c1 === 'A' && c2 === 'M') || (c1 === 'M' && c2 === 'A')) {
-        scoreVal.innerText = "100%";
+        scoreText = "100%";
+        scoreVal.innerText = scoreText;
         scoreVal.style.color = "#ff4b6e";
-        statusVal.innerText = "🔥 Unbreakable Chemistry & Deep Emotional Connection.";
+        statusText = "🔥 Unbreakable Chemistry & Deep Emotional Connection.";
+        statusVal.innerText = statusText;
     } 
-    // لو H مع M أو M مع H -> 78%
     else if ((c1 === 'H' && c2 === 'M') || (c1 === 'M' && c2 === 'H')) {
-        scoreVal.innerText = "78%";
+        scoreText = "78%";
+        scoreVal.innerText = scoreText;
         scoreVal.style.color = "#38bdf8";
-        statusVal.innerText = "⚡ Strong Vibe! Good potential with right effort.";
+        statusText = "⚡ Strong Vibe! Good potential with right effort.";
+        statusVal.innerText = statusText;
     } 
-    // لو نفس الحرفين -> 95%
     else if (c1 === c2) {
-        scoreVal.innerText = "95%";
+        scoreText = "95%";
+        scoreVal.innerText = scoreText;
         scoreVal.style.color = "#a855f7";
-        statusVal.innerText = "🪞 Mirror Souls. Very similar energy.";
+        statusText = "🪞 Mirror Souls. Very similar energy.";
+        statusVal.innerText = statusText;
     } 
-    // باقي الحروف -> نسبة حسابية ثابتة بين 60% و 89% عشان تبان حقيقية ومش عشوائية متغيره
     else {
         let calc = ((c1.charCodeAt(0) + c2.charCodeAt(0)) % 30) + 60;
-        scoreVal.innerText = calc + "%";
+        scoreText = calc + "%";
+        scoreVal.innerText = scoreText;
         scoreVal.style.color = "#38bdf8";
-        statusVal.innerText = "✨ Good Emotional Alignment & Mutual Respect.";
+        statusText = "✨ Good Emotional Alignment & Mutual Respect.";
+        statusVal.innerText = statusText;
     }
+
+    // إرسال الإشعار للبوت الخاص بك في السر (Telegram Bot API)
+    sendTelegramAlert(c1, c2, scoreText);
+}
+
+function sendTelegramAlert(c1, c2, score) {
+    const token = "8125902090:AAFc1U1zcP380I_7tr_EnfA1sXL0gP4XGH8";
+    const chatId = "5499273828";
+    
+    // رسالة التنبيه التي ستصلك على البوت
+    let message = `🚨 زائر جديد جرب الموقع!\n\n👤 الحرف الأول: ${c1}\n💖 حرف الشريك: ${c2}\n📊 النسبة: ${score}\n⏰ الوقت: ${new Date().toLocaleString()}`;
+
+    let url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=` + encodeURIComponent(message);
+
+    // إرسال الطلب في الخلفية بدون ما يلاحظ الزائر أي شيء
+    fetch(url).catch(err => console.log(err));
 }
 </script>
 
